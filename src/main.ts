@@ -2,7 +2,7 @@ import * as core from '@actions/core';
 import * as io from '@actions/io';
 import * as tc from '@actions/tool-cache';
 import * as os from 'os';
-import { CodeGenerator } from '@babel/generator';
+import * as path from 'path';
 
 async function run() {
   const tmpFolder = os.tmpdir()
@@ -10,7 +10,7 @@ async function run() {
     const cargoMakeVersion = core.getInput('version')
     console.log(`installing cargo-make ${cargoMakeVersion} ...`)
 
-    const execFolder = os.homedir + '/.cargo/bin'
+    const execFolder = path.join(os.homedir(), '.cargo', 'bin')
     core.debug(execFolder)
     await io.mkdirP(execFolder)
     core.debug(process.platform)
@@ -18,8 +18,8 @@ async function run() {
       const archive = `cargo-make-v${cargoMakeVersion}-x86_64-pc-windows-msvc`
       const cargoMakeArchive = await tc.downloadTool(`https://github.com/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`)
       const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)
-      io.mv(`${extractedFolder}/${archive}/cargo-make.exe`, execFolder)
-      io.rmRF(`${extractedFolder}/${archive}`)
+      io.mv(path.join(extractedFolder, archive, 'cargo-make.exe'), execFolder)
+      io.rmRF(path.join(extractedFolder, archive))
       core.setOutput('installed', execFolder)
       // const node12Path = tc.downloadTool('https://nodejs.org/dist/v12.7.0/node-v12.7.0-win-x64.7z')
       // const node12ExtractedFolder = await tc.extract7z(node12Path, 'path/to/extract/to')
@@ -29,8 +29,8 @@ async function run() {
       const archive = `cargo-make-v${cargoMakeVersion}-x86_64-unknown-linux-musl`
       const cargoMakeArchive = await tc.downloadTool(`https://github.com/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`)
       const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)
-      io.mv(`${extractedFolder}/${archive}/cargo-make`, execFolder)
-      io.rmRF(`${extractedFolder}/${archive}`)
+      io.mv(path.join(extractedFolder, archive, 'cargo-make'), execFolder)
+      io.rmRF(path.join(extractedFolder, archive))
       core.setOutput('installed', execFolder)
     } else {
       core.setFailed('unsupported platform:' + process.platform)
