@@ -34,6 +34,7 @@ jobs:
         with:
           toolchain: ${{ matrix.rust_toolchain }}
           override: true
+      - uses: actions/checkout@v1
       - run: npm ci
       - run: npm run build
       - uses: ./
