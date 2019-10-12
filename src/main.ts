@@ -10,21 +10,26 @@ async function run() {
   try {
     const cargoMakeVersion = core.getInput('version')
     console.log(`installing cargo-make ${cargoMakeVersion} ...`)
+    const platform =  core.getInput('platform') || process.platform
+    core.debug(platform)
 
     const execFolder = path.join(os.homedir(), '.cargo', 'bin')
     core.debug(execFolder)
     await io.mkdirP(execFolder)
-    core.debug(process.platform)
 
     let exe_ext = ''
-    let arch= 'noarch'
-    if (process.platform === 'win32') {
+    let arch = 'noarch'
+    let archTopFolder = ''
+    if (platform === 'win32') {
       arch = 'x86_64-pc-windows-msvc'
+      archTopFolder = ''
       exe_ext = '.exe'
-    } else if (process.platform === 'darwin') {
+    } else if (platform === 'darwin') {
       arch = 'x86_64-apple-darwin'
-    } else if (process.platform === 'linux') {
+      archTopFolder = arch
+    } else if (platform === 'linux') {
       arch = 'x86_64-unknown-linux-musl'
+      archTopFolder = arch
     } else {
       core.setFailed('unsupported platform:' + process.platform)
       return
@@ -34,8 +39,9 @@ async function run() {
     const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)
     const exec = `cargo-make${exe_ext}`
     const execPath = path.join(execFolder, exec)
-    await io.mv(path.join(extractedFolder, archive, exec), execPath)
-    await io.rmRF(path.join(extractedFolder, archive))
+    await io.mv(path.join(extractedFolder, archTopFolder, exec), execPath).then(() =>
+      io.rmRF(path.join(extractedFolder, archive))
+    )
     core.debug(`installed: ${execPath} : ${fs.existsSync(execPath)}`)
   } catch (error) {
     core.setFailed(error.message)
