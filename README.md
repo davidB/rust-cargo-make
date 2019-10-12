@@ -1,6 +1,6 @@
-# `rust-cargo-make` javascript action
+# `rust-cargo-make` action
 
-Install `cargo-make` by download the executable (faster than `cargo install cargo-make`, seconds vs minutes)
+Install `cargo-make` by downloading the executable (faster than `cargo install cargo-make`, seconds vs minutes).
 
 ## Inputs
 

@@ -1,6 +1,9 @@
 name: 'rust-cargo-make'
-description: 'Install cargo-make by download the executable (faster than `cargo install cargo-make`, seconds vs minutes)'
+description: 'Install `cargo-make` by downloading the executable (faster than `cargo install cargo-make`, seconds vs minutes).'
 author: 'davidB'
+branding:
+  icon: arrow-down-circle
+  color: black
 inputs:
   version:
     description: 'version of cargo-make to install'
