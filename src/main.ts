@@ -14,27 +14,26 @@ async function run() {
     core.debug(execFolder)
     await io.mkdirP(execFolder)
     core.debug(process.platform)
+
+    let exe_ext = ''
+    let arch= 'noarch'
     if (process.platform === 'win32') {
-      const archive = `cargo-make-v${cargoMakeVersion}-x86_64-pc-windows-msvc`
-      const cargoMakeArchive = await tc.downloadTool(`https://github.com/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`)
-      const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)
-      io.mv(path.join(extractedFolder, archive, 'cargo-make.exe'), execFolder)
-      io.rmRF(path.join(extractedFolder, archive))
-      core.setOutput('installed', execFolder)
-      // const node12Path = tc.downloadTool('https://nodejs.org/dist/v12.7.0/node-v12.7.0-win-x64.7z')
-      // const node12ExtractedFolder = await tc.extract7z(node12Path, 'path/to/extract/to')
+      arch = 'x86_64-pc-windows-msvc'
+      exe_ext = '.exe'
     } else if (process.platform === 'darwin') {
-      const archive = `cargo-make-v${cargoMakeVersion}-x86_64-apple-darwin`
+      arch = 'x86_64-apple-darwin'
     } else if (process.platform === 'linux') {
-      const archive = `cargo-make-v${cargoMakeVersion}-x86_64-unknown-linux-musl`
-      const cargoMakeArchive = await tc.downloadTool(`https://github.com/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`)
-      const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)
-      io.mv(path.join(extractedFolder, archive, 'cargo-make'), execFolder)
-      io.rmRF(path.join(extractedFolder, archive))
-      core.setOutput('installed', execFolder)
+      arch = 'x86_64-unknown-linux-musl'
     } else {
       core.setFailed('unsupported platform:' + process.platform)
+      return
     }
+    const archive = `cargo-make-v${cargoMakeVersion}-${arch}`
+    const cargoMakeArchive = await tc.downloadTool(`https://github.com/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`)
+    const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)
+    io.mv(path.join(extractedFolder, archive, `cargo-make${exe_ext}`), execFolder)
+    io.rmRF(path.join(extractedFolder, archive))
+    core.setOutput('installed', execFolder)
   } catch (error) {
     core.setFailed(error.message)
   }
