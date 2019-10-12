@@ -34,6 +34,8 @@ jobs:
         with:
           toolchain: ${{ matrix.rust_toolchain }}
           override: true
+      - run: npm ci
+      - run: npm run build
       - uses: ./
         with:
           version: 0.22.2
