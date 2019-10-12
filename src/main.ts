@@ -3,6 +3,7 @@ import * as io from '@actions/io';
 import * as tc from '@actions/tool-cache';
 import * as os from 'os';
 import * as path from 'path';
+import * as fs from 'fs';
 
 async function run() {
   const tmpFolder = os.tmpdir()
@@ -31,9 +32,11 @@ async function run() {
     const archive = `cargo-make-v${cargoMakeVersion}-${arch}`
     const cargoMakeArchive = await tc.downloadTool(`https://github.com/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`)
     const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)
-    io.mv(path.join(extractedFolder, archive, `cargo-make${exe_ext}`), execFolder)
-    io.rmRF(path.join(extractedFolder, archive))
-    core.setOutput('installed', execFolder)
+    const exec = `cargo-make${exe_ext}`
+    const execPath = path.join(execFolder, exec)
+    await io.mv(path.join(extractedFolder, archive, exec), execPath)
+    await io.rmRF(path.join(extractedFolder, archive))
+    core.debug(`installed: ${execPath} : ${fs.existsSync(execPath)}`)
   } catch (error) {
     core.setFailed(error.message)
   }
