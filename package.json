@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
-  "version": "0.0.0",
+  "name": "rust-cargo-make",
+  "version": "0.1.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "Install cargo-make as a github-action",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -10,17 +10,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/davidB/rust-cargo-make.git"
   },
   "keywords": [
     "actions",
-    "node",
+    "rust",
+    "cargo-make",
     "setup"
   ],
-  "author": "YourNameOrOrganization",
+  "author": "davidB",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.0.0"
+    "@actions/core": "^1.0.0",
+    "@actions/io": "^1.0.1",
+    "@actions/tool-cache": "^1.1.2"
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",
