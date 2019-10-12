@@ -10,12 +10,31 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-
-    - run: npm ci
-    - run: npm run build
-    - run: npm test
-    - uses: ./
-      with:
-        version: 0.22.2
-    - run: cargo make --version
+      - uses: actions/checkout@v1
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+  integration-test:
+    runs-on: ${{ matrix.os.imageName }}
+    strategy:
+      matrix:
+        rust_toolchain: ["stable"]
+        os:
+          - imageName: ubuntu-18.04
+            target: x86_64-unknown-linux-gnu
+            profile: linux
+          - imageName: 'macOS-10.14'
+            target: x86_64-apple-darwin
+            profile: mac
+          - imageName: 'windows-2019'
+            target: x86_64-pc-windows-msvc
+            profile: windows
+    steps:
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust_toolchain }}
+          override: true
+      - uses: ./
+        with:
+          version: 0.22.2
+      - run: cargo make --version
