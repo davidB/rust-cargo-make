@@ -3,14 +3,33 @@ import * as io from '@actions/io';
 import * as tc from '@actions/tool-cache';
 import * as os from 'os';
 import * as path from 'path';
+// use typed-rest-client like actions/tool-cache
+import * as httpm from 'typed-rest-client/HttpClient';
+
+let httpc: httpm.HttpClient = new httpm.HttpClient('vsts-node-api');
+
+async function findVersionLatest(): Promise<string> {
+  const response = await httpc.get('https://api.github.com/repos/sagiegurari/cargo-make/releases/latest')
+  const body = await response.readBody()
+  return Promise.resolve(JSON.parse(body).tag_name)
+}
+
+async function findVersion(): Promise<string> {
+  const inputVersion = core.getInput('version')
+  let cargoMakeVersion = inputVersion
+  if (inputVersion === 'latest') {
+    return findVersionLatest()
+  }
+  return Promise.resolve(inputVersion)
+}
 
 async function run() {
   const tmpFolder = path.join(os.tmpdir(), "setup-rust-cargo-make")
-  await io.mkdirP(tmpFolder)
+  const _ = await io.mkdirP(tmpFolder)
   try {
-    const cargoMakeVersion = core.getInput('version')
+    const cargoMakeVersion = await findVersion()
     console.log(`installing cargo-make ${cargoMakeVersion} ...`)
-    const platform =  process.env['PLATFORM'] || process.platform
+    const platform = process.env['PLATFORM'] || process.platform
     core.debug(platform)
 
     const execFolder = path.join(os.homedir(), '.cargo', 'bin')
@@ -48,10 +67,14 @@ async function run() {
     )
     core.debug(`installed: ${execPath}`)
   } catch (error) {
+    console.error(error)
     core.setFailed(error.message)
   } finally {
     io.rmRF(tmpFolder)
   }
 }
 
-run();
+run().then(
+  () => console.log("done"),
+  (err) => console.error(err)
+);
