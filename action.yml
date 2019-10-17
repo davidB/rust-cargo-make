@@ -6,8 +6,8 @@ branding:
   color: black
 inputs:
   version:
-    description: 'version of cargo-make to install'
-    default: '0.22.2'
+    description: 'version of cargo-make to install (eg. "0.22.2", "latest")'
+    default: 'latest'
 runs:
   using: 'node12'
   main: 'lib/main.js'

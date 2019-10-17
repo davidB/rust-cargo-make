@@ -6,7 +6,7 @@ Install `cargo-make` by downloading the executable (faster than `cargo install c
 
 ### `version`
 
-**Optional** The version of. Default `"0.22.2"`.
+**Optional** version of `cargo-make` to install (eg. `"0.22.2"`, `"latest"`).
 
 ## Example usage
 
@@ -16,8 +16,19 @@ Install `cargo-make` by downloading the executable (faster than `cargo install c
         toolchain: stable
         override: true
     - uses: davidB/rust-cargo-make@v1
+    - uses: actions/checkout@v1
+    - name: Run tests
+      run: cargo make --disable-check-for-updates ci-flow
+```
+
+```yaml
+    - uses: actions-rs/toolchain@v1
       with:
-        version: 0.22.2
+        toolchain: stable
+        override: true
+    - uses: davidB/rust-cargo-make@v1
+      with:
+        version: '0.23.0'
     - uses: actions/checkout@v1
     - name: Run tests
       run: cargo make --disable-check-for-updates ci-flow
