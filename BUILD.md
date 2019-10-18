@@ -102,3 +102,8 @@ with:
 ```
 
 See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
+
+## Notify Marketplace of the new version
+
+Edit tag on github:
+https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.1.0
