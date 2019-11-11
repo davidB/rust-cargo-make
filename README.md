@@ -18,7 +18,7 @@ Install `cargo-make` by downloading the executable (faster than `cargo install c
     - uses: davidB/rust-cargo-make@v1
     - uses: actions/checkout@v1
     - name: Run tests
-      run: cargo make --disable-check-for-updates ci-flow
+      run: cargo make ci-flow
 ```
 
 ```yaml
@@ -31,5 +31,5 @@ Install `cargo-make` by downloading the executable (faster than `cargo install c
         version: '0.23.0'
     - uses: actions/checkout@v1
     - name: Run tests
-      run: cargo make --disable-check-for-updates ci-flow
+      run: cargo make ci-flow
 ```

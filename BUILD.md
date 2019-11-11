@@ -75,15 +75,16 @@ Comment out node_modules in .gitignore and create a releases/v1 branch
 ```
 
 ```bash
-$ git checkout -b releases/v1
-$ git commit -a -m "prod dependencies"
-```
-
-```bash
-$ npm prune --production
-$ git add node_modules
-$ git commit -a -m "prod dependencies"
-$ git push origin releases/v1
+git push
+git checkout -b releases/v1
+npm prune --production
+git add node_modules
+git commit -a -m ":package:"
+git push origin releases/v1
+git tag -a "v1.1.0" -m ":bookmark: 1.1.0"
+git tag -a "v1" -m ":bookmark: update v1" -f
+git push --tags --force
+git checkout master
 ```
 
 Your action is now published! :rocket: 
@@ -102,12 +103,7 @@ with:
 
 See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
 
-## Usage:
+## Notify Marketplace of the new version
 
-After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and tested action
-
-```yaml
-uses: actions/typescript-action@v1
-with:
-  milliseconds: 1000
-```
+Edit tag on github:
+https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.1.0
