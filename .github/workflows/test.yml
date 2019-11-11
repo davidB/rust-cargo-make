@@ -24,9 +24,9 @@ jobs:
           - imageName: "macOS-latest"
           - imageName: "windows-2019"
     steps:
-      # - uses: actions-rs/toolchain@v1
-      #   with:
-      #     toolchain: ${{ matrix.rust_toolchain }}
-      #     override: true
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust_toolchain }}
+          override: true
       - uses: davidB/rust-cargo-make@v1
-      - run: cargo-make --version
+      - run: cargo make --version
