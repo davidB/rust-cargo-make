@@ -20,15 +20,9 @@ jobs:
       matrix:
         rust_toolchain: ["stable"]
         os:
-          - imageName: ubuntu-18.04
-            target: x86_64-unknown-linux-gnu
-            profile: linux
-          # - imageName: 'macOS-10.14'
-          #   target: x86_64-apple-darwin
-          #   profile: mac
+          - imageName: "ubuntu-18.04"
+          - imageName: "macOS-latest"
           - imageName: "windows-2019"
-            target: x86_64-pc-windows-msvc
-            profile: windows
     steps:
       - uses: actions-rs/toolchain@v1
         with:
