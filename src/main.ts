@@ -9,15 +9,15 @@ import * as httpm from 'typed-rest-client/HttpClient';
 let httpc: httpm.HttpClient = new httpm.HttpClient('vsts-node-api');
 
 async function findVersionLatest(): Promise<string> {
+  console.log(`search latest version of cargo-make`)
   const response = await httpc.get('https://api.github.com/repos/sagiegurari/cargo-make/releases/latest')
   const body = await response.readBody()
-  return Promise.resolve(JSON.parse(body).tag_name)
+  return Promise.resolve(JSON.parse(body).tag_name || '0.23.0')
 }
 
 async function findVersion(): Promise<string> {
   const inputVersion = core.getInput('version')
-  let cargoMakeVersion = inputVersion
-  if (inputVersion === 'latest' || !inputVersion) {
+  if (inputVersion === 'latest' || inputVersion == null || inputVersion == undefined) {
     return findVersionLatest()
   }
   return Promise.resolve(inputVersion)
@@ -58,7 +58,9 @@ async function run() {
         return
     }
     const archive = `cargo-make-v${cargoMakeVersion}-${arch}`
-    const cargoMakeArchive = await tc.downloadTool(`https://github.com/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`)
+    const url = `https://github.com/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`
+    console.log(`downloading ${url}`)
+    const cargoMakeArchive = await tc.downloadTool(url)
     const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)
     const exec = `cargo-make${exe_ext}`
     const execPath = path.join(execFolder, exec)

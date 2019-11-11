@@ -76,16 +76,20 @@ Comment out node_modules in .gitignore and create a releases/v1 branch
 
 ```bash
 git push
-git checkout -b releases/v1
+git checkout releases/v1
+git merge master
+npm ci
 npm prune --production
-git add node_modules
+git add node_modules -f
 git commit -a -m ":package:"
 git push origin releases/v1
-git tag -a "v1.1.0" -m ":bookmark: 1.1.0"
 git tag -a "v1" -m ":bookmark: update v1" -f
+git tag -a "v1.1.0" -m ":bookmark: 1.1.0"
 git push --tags --force
 git checkout master
 ```
+
+Then go to https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.1.0 to publish the release on the marketplace
 
 Your action is now published! :rocket: 
 

@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - 'releases/*'
+      - "releases/*"
 
 jobs:
   test:
@@ -20,24 +20,18 @@ jobs:
       matrix:
         rust_toolchain: ["stable"]
         os:
-          - imageName: ubuntu-18.04
-            target: x86_64-unknown-linux-gnu
-            profile: linux
-          # - imageName: 'macOS-10.14'
-          #   target: x86_64-apple-darwin
-          #   profile: mac
-          - imageName: 'windows-2019'
-            target: x86_64-pc-windows-msvc
-            profile: windows
+          - imageName: "ubuntu-18.04"
+          - imageName: "macOS-latest"
+          - imageName: "windows-2019"
     steps:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: ${{ matrix.rust_toolchain }}
           override: true
-      - uses: actions/checkout@v1
-      - run: npm ci
-      - run: npm run build
-      - uses: ./
-        with:
-          version: 0.22.2
+      - uses: davidB/rust-cargo-make@v1
+      # - uses: actions/checkout@v1
+      # - run: npm ci
+      # - run: npm run build
+      # - uses: ./
+      # - run:
       - run: cargo make --version
