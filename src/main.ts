@@ -17,7 +17,7 @@ async function findVersionLatest(): Promise<string> {
 async function findVersion(): Promise<string> {
   const inputVersion = core.getInput('version')
   let cargoMakeVersion = inputVersion
-  if (inputVersion === 'latest') {
+  if (inputVersion === 'latest' || !inputVersion) {
     return findVersionLatest()
   }
   return Promise.resolve(inputVersion)
@@ -39,7 +39,7 @@ async function run() {
     let exe_ext = ''
     let arch = 'noarch'
     let archTopFolder = ''
-    switch(platform) {
+    switch (platform) {
       case 'win32':
         arch = 'x86_64-pc-windows-msvc'
         archTopFolder = ''
