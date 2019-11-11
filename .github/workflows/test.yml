@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - 'releases/*'
+      - "releases/*"
 
 jobs:
   test:
@@ -26,7 +26,7 @@ jobs:
           # - imageName: 'macOS-10.14'
           #   target: x86_64-apple-darwin
           #   profile: mac
-          - imageName: 'windows-2019'
+          - imageName: "windows-2019"
             target: x86_64-pc-windows-msvc
             profile: windows
     steps:
@@ -34,10 +34,10 @@ jobs:
         with:
           toolchain: ${{ matrix.rust_toolchain }}
           override: true
-      - uses: actions/checkout@v1
-      - run: npm ci
-      - run: npm run build
-      - uses: ./
-        with:
-          version: 0.22.2
+      - uses: davidB/rust-cargo-make@v1
+      # - uses: actions/checkout@v1
+      # - run: npm ci
+      # - run: npm run build
+      # - uses: ./
+      # - run:
       - run: cargo make --version
