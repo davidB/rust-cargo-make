@@ -76,9 +76,11 @@ Comment out node_modules in .gitignore and create a releases/v1 branch
 
 ```bash
 git push
-git checkout -b releases/v1
+git checkout releases/v1
+git merge master
+npm ci
 npm prune --production
-git add node_modules
+git add node_modules -f
 git commit -a -m ":package:"
 git push origin releases/v1
 git tag -a "v1.1.0" -m ":bookmark: 1.1.0"
