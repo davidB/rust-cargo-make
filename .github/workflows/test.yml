@@ -14,7 +14,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm test
-  integration-test:
+  integration-test v1:
     runs-on: ${{ matrix.os.imageName }}
     strategy:
       matrix:
@@ -24,14 +24,9 @@ jobs:
           - imageName: "macOS-latest"
           - imageName: "windows-2019"
     steps:
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: ${{ matrix.rust_toolchain }}
-          override: true
+      # - uses: actions-rs/toolchain@v1
+      #   with:
+      #     toolchain: ${{ matrix.rust_toolchain }}
+      #     override: true
       - uses: davidB/rust-cargo-make@v1
-      # - uses: actions/checkout@v1
-      # - run: npm ci
-      # - run: npm run build
-      # - uses: ./
-      # - run:
-      - run: cargo make --version
+      - run: cargo-make --version
