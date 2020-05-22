@@ -12,7 +12,7 @@ async function findVersionLatest(): Promise<string> {
   console.log(`search latest version of cargo-make`)
   const response = await httpc.get('https://api.github.com/repos/sagiegurari/cargo-make/releases/latest')
   const body = await response.readBody()
-  return Promise.resolve(JSON.parse(body).tag_name || '0.23.0')
+  return Promise.resolve(JSON.parse(body).tag_name || '0.30.7')
 }
 
 async function findVersion(): Promise<string> {
