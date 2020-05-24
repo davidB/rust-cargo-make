@@ -1,20 +1,36 @@
 import * as core from '@actions/core'
+import * as httpm from '@actions/http-client'
+// import * as github from '@actions/github'
 import * as io from '@actions/io'
 import * as tc from '@actions/tool-cache'
 import * as os from 'os'
 import * as path from 'path'
-// use typed-rest-client like actions/tool-cache
-import * as httpm from 'typed-rest-client/HttpClient'
-
-const httpc: httpm.HttpClient = new httpm.HttpClient('vsts-node-api')
 
 async function findVersionLatest(): Promise<string> {
   core.info(`search latest version of cargo-make`)
-  const response = await httpc.get(
+  let version: string | null = null
+  const url =
     'https://api.github.com/repos/sagiegurari/cargo-make/releases/latest'
+  // octokit require a token also for public (anonymous endpoint)
+  // const octokit = new github.GitHub('myToken', {auth: 'no-token'})
+  // const {data} = await octokit.repos.getLatestRelease({
+  //   owner: 'sagiegurari',
+  //   repo: 'cargo-make'
+  // })
+  const http: httpm.HttpClient = new httpm.HttpClient(
+    'http-client-github-actions'
   )
-  const body = await response.readBody()
-  return Promise.resolve(JSON.parse(body).tag_name || '0.30.7')
+  const res: httpm.HttpClientResponse = await http.get(url)
+  if (res.message.statusCode == 200) {
+    const body: string = await res.readBody()
+    version = JSON.parse(body).tag_name
+    core.debug(`latest cargo-make release found: ${version}`)
+  } else {
+    core.warning(
+      `request to retrieve latest version of cargo-make failed: ${res}`
+    )
+  }
+  return Promise.resolve(version || '0.30.7')
 }
 
 async function findVersion(): Promise<string> {
