@@ -1,38 +1,29 @@
 import * as core from '@actions/core'
-import * as httpm from '@actions/http-client'
-// import * as github from '@actions/github'
+import * as github from '@actions/github'
 import * as io from '@actions/io'
 import * as tc from '@actions/tool-cache'
 import * as os from 'os'
 import * as path from 'path'
 
-async function findVersionLatest(): Promise<string> {
+async function findVersionLatest(fallbackVersion: string): Promise<string> {
   core.info(`search latest version of cargo-make`)
-  let version: string | null = null
-  const url =
-    'https://api.github.com/repos/sagiegurari/cargo-make/releases/latest'
+  let version: string = fallbackVersion
   // octokit require a token also for public (anonymous endpoint)
-  // const octokit = new github.GitHub('myToken', {auth: 'no-token'})
-  // const {data} = await octokit.repos.getLatestRelease({
-  //   owner: 'sagiegurari',
-  //   repo: 'cargo-make'
-  // })
-  const http: httpm.HttpClient = new httpm.HttpClient(
-    'http-client-github-actions'
-  )
-  const res: httpm.HttpClientResponse = await http.get(url)
-  if (res.message.statusCode == 200) {
-    const body: string = await res.readBody()
-    version = JSON.parse(body).tag_name
+  const token = process.env['GITHUB_TOKEN']
+  if (token) {
+    const octokit = new github.GitHub(token)
+    const {data} = await octokit.repos.getLatestRelease({
+      owner: 'sagiegurari',
+      repo: 'cargo-make'
+    })
+    version = data.tag_name
     core.debug(`latest cargo-make release found: ${version}`)
   } else {
     core.warning(
-      `request to retrieve latest version of cargo-make failed:
-      with status: ${res.message.statusCode}
-      with message: ${res.message.statusMessage}`
+      `no GITHUB_TOKEN in env to retrieve the latest version, fallback to ${fallbackVersion}`
     )
   }
-  return Promise.resolve(version || '0.30.7')
+  return Promise.resolve(version || fallbackVersion)
 }
 
 async function findVersion(): Promise<string> {
@@ -42,7 +33,7 @@ async function findVersion(): Promise<string> {
     inputVersion == null ||
     inputVersion === undefined
   ) {
-    return findVersionLatest()
+    return findVersionLatest(core.getInput('fallback_version'))
   }
   return Promise.resolve(inputVersion)
 }

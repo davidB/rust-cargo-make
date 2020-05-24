@@ -19,19 +19,22 @@ function exec_check() {
 }
 
 // shows how the runner will run a javascript action with env / stdout protocol
-test('test runs with fixed version="0.30.7"', () => {
+test('test runs with fixed version="0.22.1"', () => {
   process.env['RUNNER_TEMP'] = os.tmpdir()
-  process.env['INPUT_VERSION'] = '0.30.7'
+  process.env['INPUT_VERSION'] = '0.22.1'
+  process.env['INPUT_FALLBACK_VERSION'] = '0.30.7'
   exec_check()
 })
 
 test('test runs with version="latest"', () => {
   process.env['RUNNER_TEMP'] = os.tmpdir()
   process.env['INPUT_VERSION'] = 'latest'
+  process.env['INPUT_FALLBACK_VERSION'] = '0.30.7'
   exec_check()
 })
 
 test('test runs without version defined', () => {
   process.env['RUNNER_TEMP'] = os.tmpdir()
+  process.env['INPUT_FALLBACK_VERSION'] = '0.30.7'
   exec_check()
 })

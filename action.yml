@@ -8,6 +8,9 @@ inputs:
   version:
     description: 'version of cargo-make to install (eg. "0.22.2", "latest")'
     default: 'latest'
+  fallback_version:
+    description: 'version of cargo-make to install if latest could not be determinated'
+    default: '0.30.7'
 runs:
   using: 'node12'
   main: 'dist/index.js'
