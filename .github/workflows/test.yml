@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run:|
-        npm ci
-        npm run all
+      - run: |
+          npm ci
+          npm run all
   integration-test-v1:
     runs-on: ${{ matrix.os.imageName }}
     strategy:
