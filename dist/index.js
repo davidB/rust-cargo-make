@@ -1436,8 +1436,7 @@ function findVersionLatest() {
         else {
             core.warning(`request to retrieve latest version of cargo-make failed:
       with status: ${res.message.statusCode}
-      with message: ${res.message.statusMessage}
-      with headers: ${res.message.headers}`);
+      with message: ${res.message.statusMessage}`);
         }
         return Promise.resolve(version || '0.30.7');
     });
