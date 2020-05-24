@@ -3,10 +3,12 @@ import * as os from 'os'
 import * as path from 'path'
 import * as process from 'process'
 
-function exec_check(
-  jscmd: string,
-  options: cp.ExecSyncOptionsWithStringEncoding
-) {
+function exec_check() {
+  const options: cp.ExecSyncOptionsWithStringEncoding = {
+    env: process.env,
+    encoding: 'utf-8'
+  }
+  const jscmd = path.join(__dirname, '..', 'dist', 'index.js')
   const exec = cp.spawnSync('node', [jscmd], options)
   if (exec.status != 0) {
     console.log(exec)
@@ -20,32 +22,16 @@ function exec_check(
 test('test runs with fixed version="0.30.7"', () => {
   process.env['RUNNER_TEMP'] = os.tmpdir()
   process.env['INPUT_VERSION'] = '0.30.7'
-  const jscmd = path.join(__dirname, '..', 'lib', 'main.js')
-  const options: cp.ExecSyncOptionsWithStringEncoding = {
-    env: process.env,
-    encoding: 'utf-8'
-  }
-  exec_check(jscmd, options)
+  exec_check()
 })
 
 test('test runs with version="latest"', () => {
   process.env['RUNNER_TEMP'] = os.tmpdir()
   process.env['INPUT_VERSION'] = 'latest'
-  const jscmd = path.join(__dirname, '..', 'lib', 'main.js')
-  const options: cp.ExecSyncOptionsWithStringEncoding = {
-    env: process.env,
-    encoding: 'utf-8'
-  }
-  exec_check(jscmd, options)
+  exec_check()
 })
 
 test('test runs without version defined', () => {
   process.env['RUNNER_TEMP'] = os.tmpdir()
-  // process.env['INPUT_VERSION'] = "latest"
-  const jscmd = path.join(__dirname, '..', 'lib', 'main.js')
-  const options: cp.ExecSyncOptionsWithStringEncoding = {
-    env: process.env,
-    encoding: 'utf-8'
-  }
-  exec_check(jscmd, options)
+  exec_check()
 })
