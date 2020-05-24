@@ -14,6 +14,22 @@ jobs:
       - run: |
           npm ci
           npm run all
+  integration-test-dev:
+    runs-on: ${{ matrix.os.imageName }}
+    strategy:
+      matrix:
+        rust_toolchain: ["stable"]
+        os:
+          - imageName: "ubuntu-18.04"
+          - imageName: "macOS-latest"
+          - imageName: "windows-2019"
+    steps:
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust_toolchain }}
+          override: true
+      - uses: ./
+      - run: cargo make --version
   integration-test-v1:
     runs-on: ${{ matrix.os.imageName }}
     strategy:
