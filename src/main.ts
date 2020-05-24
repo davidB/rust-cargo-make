@@ -27,9 +27,10 @@ async function findVersionLatest(): Promise<string> {
     core.debug(`latest cargo-make release found: ${version}`)
   } else {
     core.warning(
-      `request to retrieve latest version of cargo-make failed: ${JSON.stringify(
-        res.message
-      )}`
+      `request to retrieve latest version of cargo-make failed:
+      with status: ${res.message.statusCode}
+      with message: ${res.message.statusMessage}
+      with headers: ${res.message.headers}`
     )
   }
   return Promise.resolve(version || '0.30.7')
