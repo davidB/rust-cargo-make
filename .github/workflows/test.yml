@@ -28,6 +28,7 @@ jobs:
         with:
           toolchain: ${{ matrix.rust_toolchain }}
           override: true
+      - uses: actions/checkout@v1
       - uses: ./
       - run: cargo make --version
   integration-test-v1:
