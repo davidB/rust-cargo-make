@@ -1,20 +1,20 @@
-name: "test"
-on:
+name: "build-test"
+on: # rebuild any PRs and main branch changes
   pull_request:
   push:
     branches:
       - master
-      - "releases/*"
+      - 'releases/*'
 
 jobs:
-  test:
+  build: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: npm ci
-      - run: npm run build
-      - run: npm test
-  integration-test:
+      - run: |
+          npm ci
+          npm run all
+  integration-test-v1:
     runs-on: ${{ matrix.os.imageName }}
     strategy:
       matrix:
@@ -29,9 +29,4 @@ jobs:
           toolchain: ${{ matrix.rust_toolchain }}
           override: true
       - uses: davidB/rust-cargo-make@v1
-      # - uses: actions/checkout@v1
-      # - run: npm ci
-      # - run: npm run build
-      # - uses: ./
-      # - run:
       - run: cargo make --version

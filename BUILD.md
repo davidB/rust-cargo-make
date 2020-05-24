@@ -1,37 +1,19 @@
 # Build a JavaScript Action using TypeScript
 
-Use this template to bootstrap the creation of a JavaScript action.:rocket:
-
-This template includes compilication support, tests, a validation workflow, publishing, and versioning guidance.  
-
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
-
-## Create an action from this template
-
-Click the `Use this Template` and provide the new repo details for your action
+The project is based on the template [actions/typescript-action: Create a TypeScript Action with tests, linting, workflow, publishing, and versioning](https://github.com/actions/typescript-action)
 
 ## Code in Master
 
 Install the dependencies  
+
 ```bash
-$ npm install
+npm install
 ```
 
-Build the typescript
+Build & test
+
 ```bash
-$ npm run build
-```
-
-Run the tests :heavy_check_mark:  
-```bash
-$ npm test
-
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-
-...
+npm run all
 ```
 
 ## Change action.yml
@@ -51,9 +33,9 @@ import * as core from '@actions/core';
 ...
 
 async function run() {
-  try { 
+  try {
       ...
-  } 
+  }
   catch (error) {
     core.setFailed(error.message);
   }
@@ -66,9 +48,10 @@ See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/R
 
 ## Publish to a distribution branch
 
-Actions are run from GitHub repos.  We will create a releases branch and only checkin production modules (core in this case). 
+Actions are run from GitHub repos.  We will create a releases branch and only checkin production modules (core in this case).
 
 Comment out node_modules in .gitignore and create a releases/v1 branch
+
 ```bash
 # comment out in distribution branches
 # node_modules/
@@ -78,9 +61,8 @@ Comment out node_modules in .gitignore and create a releases/v1 branch
 git push
 git checkout releases/v1
 git merge master
-npm ci
-npm prune --production
-git add node_modules -f
+npm run all
+git add dist
 git commit -a -m ":package:"
 git push origin releases/v1
 git tag -a "v1" -m ":bookmark: update v1" -f
@@ -89,9 +71,9 @@ git push --tags --force
 git checkout master
 ```
 
-Then go to https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.1.0 to publish the release on the marketplace
+Then go to <https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.1.0> to publish the release on the marketplace
 
-Your action is now published! :rocket: 
+Your action is now published! :rocket:
 
 See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
 
@@ -110,4 +92,4 @@ See the [actions tab](https://github.com/actions/javascript-action/actions) for 
 ## Notify Marketplace of the new version
 
 Edit tag on github:
-https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.1.0
+<https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.1.0>
