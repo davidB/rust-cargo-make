@@ -4,7 +4,7 @@ on: # rebuild any PRs and main branch changes
   push:
     branches:
       - master
-      - 'releases/*'
+      - "releases/*"
 
 jobs:
   build: # make sure build/ci work properly
@@ -30,6 +30,8 @@ jobs:
           override: true
       - uses: actions/checkout@v1
       - uses: ./
+        # with:
+        #   github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: cargo make --version
   integration-test-v1:
     runs-on: ${{ matrix.os.imageName }}
@@ -46,4 +48,6 @@ jobs:
           toolchain: ${{ matrix.rust_toolchain }}
           override: true
       - uses: davidB/rust-cargo-make@v1
+        # with:
+        #   github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: cargo make --version

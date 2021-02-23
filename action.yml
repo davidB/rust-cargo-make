@@ -1,16 +1,16 @@
-name: 'rust-cargo-make'
-description: 'Install `cargo-make` by downloading the executable (faster than `cargo install cargo-make`, seconds vs minutes).'
-author: 'davidB'
+name: "rust-cargo-make"
+description: "Install `cargo-make` by downloading the executable (faster than `cargo install cargo-make`, seconds vs minutes)."
+author: "davidB"
 branding:
   icon: arrow-down-circle
   color: black
 inputs:
   version:
-    description: 'version of cargo-make to install (eg. "0.22.2", "latest")'
-    default: 'latest'
+    description: 'version(s) of cargo-make to install (eg. "0.22.2", "latest")'
+    default: "latest"
   fallback_version:
-    description: 'version of cargo-make to install if latest could not be determinated'
-    default: '0.30.7'
+    description: 'version of cargo-make to install if "latest" requested but it could not be determinated'
+    default: "0.30.7"
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
