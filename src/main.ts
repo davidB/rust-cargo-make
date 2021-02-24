@@ -9,7 +9,7 @@ async function findVersionLatest(fallbackVersion: string): Promise<string> {
   core.info(`search latest version of cargo-make`)
   let version: string = fallbackVersion
   // octokit require a token also for public (anonymous endpoint)
-  const token = process.env['GITHUB_TOKEN']
+  const token = core.getInput('github-token') || process.env['GITHUB_TOKEN']
   if (token) {
     const octokit = new github.GitHub(token)
     const {data} = await octokit.repos.getLatestRelease({
@@ -73,7 +73,8 @@ async function run(): Promise<void> {
         return
     }
     const archive = `cargo-make-v${cargoMakeVersion}-${arch}`
-    const url = `https://github.com/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`
+    // see https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables
+    const url = `${process.env['GITHUB_SERVER_URL']}/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`
     core.info(`downloading ${url}`)
     const cargoMakeArchive = await tc.downloadTool(url)
     const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)

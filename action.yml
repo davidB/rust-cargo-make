@@ -11,6 +11,9 @@ inputs:
   fallback_version:
     description: 'version of cargo-make to install if "latest" requested but it could not be determinated'
     default: "0.30.7"
+  github_token:
+    description: "Authentication token to use when connecting to the GitHub API. Token used to search the latest version, defining token reduces propability of rejection when requested github, it can be defined as ${{ secrets.GITHUB_TOKEN }}"
+    default: "${{ github.token }}"
 runs:
   using: "node12"
   main: "dist/index.js"
