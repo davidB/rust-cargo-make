@@ -74,7 +74,9 @@ async function run(): Promise<void> {
     }
     const archive = `cargo-make-v${cargoMakeVersion}-${arch}`
     // see https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables
-    const url = `${process.env['GITHUB_SERVER_URL']}/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`
+    const githubServerUrl =
+      process.env['GITHUB_SERVER_URL'] || 'https://github.com'
+    const url = `${githubServerUrl}/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`
     core.info(`downloading ${url}`)
     const cargoMakeArchive = await tc.downloadTool(url)
     const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)
