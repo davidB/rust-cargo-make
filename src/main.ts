@@ -80,19 +80,16 @@ async function run(): Promise<void> {
     const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)
     const exec = `cargo-make${exeExt}`
     const execPath = path.join(execFolder, exec)
-    await io
-      .mv(path.join(extractedFolder, archTopFolder, exec), execPath)
-      .then(async () => io.rmRF(path.join(extractedFolder, archive)))
+    await io.mv(path.join(extractedFolder, archTopFolder, exec), execPath)
+    await io.rmRF(path.join(extractedFolder, archive))
     core.debug(`installed: ${execPath}`)
+    core.info('done')
   } catch (error) {
     core.error(error)
     core.setFailed(error.message)
   } finally {
-    io.rmRF(tmpFolder)
+    await io.rmRF(tmpFolder)
   }
 }
 
-run().then(
-  () => core.info('done'),
-  err => core.error(err)
-)
+run()
