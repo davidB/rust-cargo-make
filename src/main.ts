@@ -11,7 +11,7 @@ async function findVersionLatest(fallbackVersion: string): Promise<string> {
   // octokit require a token also for public (anonymous endpoint)
   const token = core.getInput('github-token') || process.env['GITHUB_TOKEN']
   if (token) {
-    const octokit = new github.GitHub(token)
+    const octokit = github.getOctokit(token)
     const {data} = await octokit.repos.getLatestRelease({
       owner: 'sagiegurari',
       repo: 'cargo-make'
