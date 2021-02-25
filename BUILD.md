@@ -64,10 +64,10 @@ git merge master
 npm run all
 git add dist
 git commit -a -m ":package:"
-git push origin releases/v1
 git tag -a "v1" -m ":bookmark: update v1" -f
+# no need to align version in package.json with this value
 git tag -a "v1.1.0" -m ":bookmark: 1.1.0"
-git push --tags --force
+git push --tags --force --follow-tags
 git checkout master
 ```
 
