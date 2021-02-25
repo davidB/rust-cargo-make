@@ -47,7 +47,7 @@ function findVersionLatest(fallbackVersion) {
         core.info(`search latest version of cargo-make`);
         let version = fallbackVersion;
         // octokit require a token also for public (anonymous endpoint)
-        const token = core.getInput('github-token') || process.env['GITHUB_TOKEN'];
+        const token = core.getInput('github_token') || process.env['GITHUB_TOKEN'];
         if (token) {
             const octokit = github.getOctokit(token);
             const { data } = yield octokit.repos.getLatestRelease({
