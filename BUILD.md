@@ -58,20 +58,16 @@ Comment out node_modules in .gitignore and create a releases/v1 branch
 ```
 
 ```bash
-git push
-git checkout releases/v1
-git merge master
 npm run all
 git add dist
 git commit -a -m ":package:"
 git tag -a "v1" -m ":bookmark: update v1" -f
 # no need to align version in package.json with this value
-git tag -a "v1.1.0" -m ":bookmark: 1.1.0"
+git tag -a "v1.5.0" -m ":bookmark: 1.5.0"
 git push --tags --force --follow-tags
-git checkout master
 ```
 
-Then go to <https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.1.0> to publish the release on the marketplace
+Then go to <https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.5.0> to publish the release on the marketplace
 
 Your action is now published! :rocket:
 
@@ -92,4 +88,4 @@ See the [actions tab](https://github.com/actions/javascript-action/actions) for 
 ## Notify Marketplace of the new version
 
 Edit tag on github:
-<https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.1.0>
+<https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.5.0>
