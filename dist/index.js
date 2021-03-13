@@ -116,7 +116,7 @@ function run() {
             const extractedFolder = yield tc.extractZip(cargoMakeArchive, tmpFolder);
             const exec = `cargo-make${exeExt}`;
             const execPath = path.join(execFolder, exec);
-            yield io.mv(path.join(extractedFolder, archTopFolder, exec), execPath);
+            yield io.cp(path.join(extractedFolder, archTopFolder, exec), execPath);
             yield io.rmRF(path.join(extractedFolder, archive));
             core.debug(`installed: ${execPath}`);
             core.info('done');
