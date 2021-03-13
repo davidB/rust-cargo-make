@@ -82,7 +82,7 @@ async function run(): Promise<void> {
     const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)
     const exec = `cargo-make${exeExt}`
     const execPath = path.join(execFolder, exec)
-    await io.mv(path.join(extractedFolder, archTopFolder, exec), execPath)
+    await io.cp(path.join(extractedFolder, archTopFolder, exec), execPath)
     await io.rmRF(path.join(extractedFolder, archive))
     core.debug(`installed: ${execPath}`)
     core.info('done')
