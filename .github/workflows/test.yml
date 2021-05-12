@@ -24,7 +24,7 @@ jobs:
           - imageName: "macOS-latest"
           - imageName: "windows-2019"
     steps:
-      - uses: actions-rs/toolchain@v1
+      - uses: actions-rs/toolchain@v1.0.7
         with:
           toolchain: ${{ matrix.rust_toolchain }}
           override: true
@@ -43,7 +43,7 @@ jobs:
           - imageName: "macOS-latest"
           - imageName: "windows-2019"
     steps:
-      - uses: actions-rs/toolchain@v1
+      - uses: actions-rs/toolchain@v1.0.7
         with:
           toolchain: ${{ matrix.rust_toolchain }}
           override: true
