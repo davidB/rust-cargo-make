@@ -61,10 +61,9 @@ Comment out node_modules in .gitignore and create a releases/v1 branch
 npm run all
 git add dist
 git commit -a -m ":package:"
-git tag -a "v1" -m ":bookmark: update v1" -f
 # no need to align version in package.json with this value
 git tag -a "v1.5.0" -m ":bookmark: 1.5.0"
-git push --tags --force --follow-tags
+git push --follow-tags
 ```
 
 Then go to <https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.5.0> to publish the release on the marketplace
