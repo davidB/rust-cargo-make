@@ -12,7 +12,7 @@ async function findVersionLatest(fallbackVersion: string): Promise<string> {
   const token = core.getInput('github_token') || process.env['GITHUB_TOKEN']
   if (token) {
     const octokit = github.getOctokit(token)
-    const {data} = await octokit.repos.getLatestRelease({
+    const {data} = await octokit.rest.repos.getLatestRelease({
       owner: 'sagiegurari',
       repo: 'cargo-make'
     })
