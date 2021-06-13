@@ -4,13 +4,11 @@
 
 pkgs.mkShell {               # mkShell is a helper function
   name="dev-environment";    # that requires a name
-  buildInputs =  with pkgs; [
+  nativeBuildInputs =  with pkgs; [
     nodejs-14_x
     yarn
-    starship
   ];
   # bash to run when you enter the shell
   shellHook = ''
-    source <(starship init bash --print-full-init)
   '';
 }
