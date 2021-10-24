@@ -21,7 +21,7 @@ function exec_check() {
 // shows how the runner will run a javascript action with env / stdout protocol
 test('test runs with fixed version="0.35.5"', () => {
   process.env['RUNNER_TEMP'] = os.tmpdir()
-  process.env['INPUT_VERSION'] = '0.22.1'
+  process.env['INPUT_VERSION'] = '0.35.5'
   process.env['INPUT_FALLBACK_VERSION'] = '0.35.5'
   exec_check()
 })
