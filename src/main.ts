@@ -85,7 +85,10 @@ async function run(): Promise<void> {
     const execPath = path.join(execFolder, exec)
     const execMakersPath = path.join(execFolder, execMakers)
     await io.cp(path.join(extractedFolder, archTopFolder, exec), execPath)
-    await io.cp(path.join(extractedFolder, archTopFolder, execMakers), execMakersPath)
+    await io.cp(
+      path.join(extractedFolder, archTopFolder, execMakers),
+      execMakersPath
+    )
     await io.rmRF(path.join(extractedFolder, archive))
     core.debug(`installed: ${execPath}`)
     core.info('done')
