@@ -32,7 +32,9 @@ jobs:
       - uses: ./
         # with:
         #   github_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: cargo make --version
+      - run: |
+          cargo make --version
+          makers --version
   integration-test-v1:
     runs-on: ${{ matrix.os.imageName }}
     strategy:
@@ -50,4 +52,6 @@ jobs:
       - uses: davidB/rust-cargo-make@v1.6.0
         # with:
         #   github_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: cargo make --version
+      - run: |
+          cargo make --version
+          makers --version
