@@ -1,9 +1,9 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 import * as io from '@actions/io'
-import * as tc from '@actions/tool-cache'
 import * as os from 'os'
 import * as path from 'path'
+import * as tc from '@actions/tool-cache'
 
 async function findVersionLatest(fallbackVersion: string): Promise<string> {
   core.info(`search latest version of cargo-make`)
@@ -87,8 +87,12 @@ async function run(): Promise<void> {
     core.debug(`installed: ${execPath}`)
     core.info('done')
   } catch (error) {
-    core.error(error)
-    core.setFailed(error.message)
+    if (error instanceof Error) {
+      core.error(error)
+      core.setFailed(error)
+    } else {
+      core.setFailed(String(error))
+    }
   } finally {
     await io.rmRF(tmpFolder)
   }
