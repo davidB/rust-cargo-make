@@ -26,7 +26,7 @@
   "author": "davidB",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.9",
+    "@actions/core": "^1.10",
     "@actions/github": "^5.1",
     "@actions/io": "^1.1",
     "@actions/tool-cache": "^2.0"
