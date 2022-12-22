@@ -1,3 +1,4 @@
+import {describe, expect, test} from '@jest/globals'
 import * as cp from 'child_process'
 import * as os from 'os'
 import * as path from 'path'
