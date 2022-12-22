@@ -4,6 +4,10 @@
   "private": true,
   "description": "Install cargo-make as a github-action",
   "main": "lib/main.js",
+  "engines": {
+    "node": ">=16.0",
+    "npm": ">8.0.0"
+  },
   "scripts": {
     "build": "tsc",
     "format": "prettier --write **/*.ts",
