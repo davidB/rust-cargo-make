@@ -20,9 +20,11 @@ jobs:
       matrix:
         rust_toolchain: ["stable"]
         os:
-          - imageName: "ubuntu-18.04"
+          # - imageName: "ubuntu-18.04"
+          - imageName: "ubuntu-latest"
           - imageName: "macOS-latest"
-          - imageName: "windows-2019"
+          # - imageName: "windows-2019"
+          - imageName: "windows-latest"
     steps:
       - uses: actions-rs/toolchain@v1.0.7
         with:
@@ -39,9 +41,11 @@ jobs:
       matrix:
         rust_toolchain: ["stable"]
         os:
-          - imageName: "ubuntu-18.04"
+          # - imageName: "ubuntu-18.04"
+          - imageName: "ubuntu-latest"
           - imageName: "macOS-latest"
-          - imageName: "windows-2019"
+          # - imageName: "windows-2019"
+          - imageName: "windows-latest"
     steps:
       - uses: actions-rs/toolchain@v1.0.7
         with:
