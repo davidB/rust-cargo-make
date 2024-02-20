@@ -60,9 +60,9 @@ Comment out node_modules in .gitignore and create a releases/v1 branch
 ```bash
 npm run all
 git add dist
-git commit -a -m ":package:"
+git commit -a -m "📦"
 # no need to align version in package.json with this value
-git tag -a "v1.5.0" -m ":bookmark: 1.5.0"
+git tag -a "v1.5.0" -m "🔖 1.5.0"
 git push --follow-tags
 ```
 
