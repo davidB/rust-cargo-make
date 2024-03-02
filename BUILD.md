@@ -64,7 +64,9 @@ git commit -a -m "📦"
 # no need to align version in package.json with this value
 git tag -a "v1.10.0" -m "🔖 1.10.0"
 git tag -a "v1" -m "🔖 update v1" -f
-git push --follow-tags --force
+#git push --follow-tags --force
+git push
+git push --tags --force
 ```
 
 Then go to <https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.5.0> to publish the release on the marketplace
