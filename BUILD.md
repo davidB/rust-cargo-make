@@ -63,7 +63,7 @@ git add dist
 git commit -a -m "📦"
 # no need to align version in package.json with this value
 git tag -a "v1.10.0" -m "🔖 1.10.0"
-git tag -a "v1" -m "🔖 update v1" -f
+git tag -a "v1" -m "🔖 update v1.10.0" -f
 #git push --follow-tags --force
 git push
 git push --tags --force
