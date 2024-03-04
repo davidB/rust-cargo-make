@@ -51,7 +51,7 @@ jobs:
         with:
           toolchain: ${{ matrix.rust_toolchain }}
           override: true
-      - uses: davidB/rust-cargo-make@v1.10.0
+      - uses: davidB/rust-cargo-make@v1.10.1
         # with:
         #   github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: cargo make --version
