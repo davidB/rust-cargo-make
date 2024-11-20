@@ -63,7 +63,7 @@ Comment out node_modules in .gitignore and create a releases/v1 branch
 # comment out in distribution branches
 # node_modules/
 ```
-
+<!--
 ```bash
 npm run all
 git add dist
@@ -78,6 +78,11 @@ git push --tags --force
 
 Then go to <https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.5.0>
 to publish the release on the marketplace
+-->
+
+```bash
+scripts/release
+```
 
 Your action is now published! :rocket:
 
