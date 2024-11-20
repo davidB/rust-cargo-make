@@ -3,7 +3,7 @@
 The project is based on the template
 [actions/typescript-action: Create a TypeScript Action with tests, linting, workflow, publishing, and versioning](https://github.com/actions/typescript-action)
 
-## Code in Master
+## Code in Main branch
 
 Install the dependencies
 
