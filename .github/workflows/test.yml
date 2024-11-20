@@ -36,10 +36,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Test Local Action
         uses: ./
-        # with:
-        #   github_token: ${{ secrets.GITHUB_TOKEN }}
         id: test-action
         with:
+          #   github_token: ${{ secrets.GITHUB_TOKEN }}
           milliseconds: 2000
       - run: cargo make --version
       - name: Print Output
