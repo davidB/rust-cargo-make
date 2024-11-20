@@ -1,10 +1,11 @@
 # Build a JavaScript Action using TypeScript
 
-The project is based on the template [actions/typescript-action: Create a TypeScript Action with tests, linting, workflow, publishing, and versioning](https://github.com/actions/typescript-action)
+The project is based on the template
+[actions/typescript-action: Create a TypeScript Action with tests, linting, workflow, publishing, and versioning](https://github.com/actions/typescript-action)
 
 ## Code in Master
 
-Install the dependencies  
+Install the dependencies
 
 ```bash
 npm install
@@ -20,13 +21,16 @@ npm run all
 
 The action.yml contains defines the inputs and output for your action.
 
-Update the action.yml with your name, description, inputs and outputs for your action.
+Update the action.yml with your name, description, inputs and outputs for your
+action.
 
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
+See the
+[documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
 
 ## Change the Code
 
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
+Most toolkit and CI/CD operations involve async operations so the action is run
+in an async function.
 
 ```javascript
 import * as core from '@actions/core';
@@ -44,11 +48,14 @@ async function run() {
 run()
 ```
 
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
+See the
+[toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages)
+for the various packages.
 
 ## Publish to a distribution branch
 
-Actions are run from GitHub repos.  We will create a releases branch and only checkin production modules (core in this case).
+Actions are run from GitHub repos. We will create a releases branch and only
+checkin production modules (core in this case).
 
 Comment out node_modules in .gitignore and create a releases/v1 branch
 
@@ -69,11 +76,13 @@ git push
 git push --tags --force
 ```
 
-Then go to <https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.5.0> to publish the release on the marketplace
+Then go to <https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.5.0>
+to publish the release on the marketplace
 
 Your action is now published! :rocket:
 
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
+See the
+[versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
 
 ## Validate
 
@@ -85,7 +94,8 @@ with:
   milliseconds: 1000
 ```
 
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
+See the [actions tab](https://github.com/actions/javascript-action/actions) for
+runs of this action! :rocket:
 
 ## Notify Marketplace of the new version
 
