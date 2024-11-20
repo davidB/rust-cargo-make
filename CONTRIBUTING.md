@@ -99,5 +99,5 @@ runs of this action! :rocket:
 
 ## Notify Marketplace of the new version
 
-Edit tag on github:
+Edit tag on GitHub:
 <https://github.com/davidB/rust-cargo-make/releases/new?tag=v1.5.0>

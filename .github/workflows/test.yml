@@ -6,6 +6,9 @@ on: # rebuild any PRs and main branch changes
       - main
       - 'releases/*'
 
+permissions:
+  contents: read
+
 jobs:
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
@@ -31,10 +34,18 @@ jobs:
           toolchain: ${{ matrix.rust_toolchain }}
           override: true
       - uses: actions/checkout@v4
-      - uses: ./
+      - name: Test Local Action
+        uses: ./
         # with:
         #   github_token: ${{ secrets.GITHUB_TOKEN }}
+        id: test-action
+        with:
+          milliseconds: 2000
       - run: cargo make --version
+      - name: Print Output
+        id: output
+        run: echo "${{ steps.test-action.outputs.time }}"
+
   integration-test-v1:
     runs-on: ${{ matrix.os.imageName }}
     strategy:
