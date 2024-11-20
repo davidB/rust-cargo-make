@@ -37,13 +37,9 @@ jobs:
       - name: Test Local Action
         uses: ./
         id: test-action
-        with:
-          #   github_token: ${{ secrets.GITHUB_TOKEN }}
-          milliseconds: 2000
+        # with:
+        #     github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: cargo make --version
-      - name: Print Output
-        id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
 
   integration-test-v1:
     runs-on: ${{ matrix.os.imageName }}
