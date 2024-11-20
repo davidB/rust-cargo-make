@@ -1,6 +1,6 @@
 {
   "name": "rust-cargo-make",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "private": true,
   "description": "Install cargo-make as a github-action",
   "main": "lib/main.js",
