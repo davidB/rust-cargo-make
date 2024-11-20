@@ -1,9 +1,9 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 import * as io from '@actions/io'
+import * as tc from '@actions/tool-cache'
 import * as os from 'os'
 import * as path from 'path'
-import * as tc from '@actions/tool-cache'
 
 async function findVersionLatest(fallbackVersion: string): Promise<string> {
   core.info(`search latest version of cargo-make`)
@@ -12,7 +12,7 @@ async function findVersionLatest(fallbackVersion: string): Promise<string> {
   const token = core.getInput('github_token') || process.env['GITHUB_TOKEN']
   if (token) {
     const octokit = github.getOctokit(token)
-    const {data} = await octokit.rest.repos.getLatestRelease({
+    const { data } = await octokit.rest.repos.getLatestRelease({
       owner: 'sagiegurari',
       repo: 'cargo-make'
     })
@@ -38,7 +38,7 @@ async function findVersion(): Promise<string> {
   return Promise.resolve(inputVersion)
 }
 
-async function run(): Promise<void> {
+export async function run(): Promise<void> {
   const tmpFolder = path.join(os.tmpdir(), 'setup-rust-cargo-make')
   await io.mkdirP(tmpFolder)
   try {
@@ -97,5 +97,3 @@ async function run(): Promise<void> {
     await io.rmRF(tmpFolder)
   }
 }
-
-run()

@@ -1,10 +1,10 @@
-name: "build-test"
+name: 'build-test'
 on: # rebuild any PRs and main branch changes
   pull_request:
   push:
     branches:
       - master
-      - "releases/*"
+      - 'releases/*'
 
 jobs:
   build: # make sure build/ci work properly
@@ -18,13 +18,13 @@ jobs:
     runs-on: ${{ matrix.os.imageName }}
     strategy:
       matrix:
-        rust_toolchain: ["stable"]
+        rust_toolchain: ['stable']
         os:
           # - imageName: "ubuntu-18.04"
-          - imageName: "ubuntu-latest"
-          - imageName: "macOS-latest"
+          - imageName: 'ubuntu-latest'
+          - imageName: 'macOS-latest'
           # - imageName: "windows-2019"
-          - imageName: "windows-latest"
+          - imageName: 'windows-latest'
     steps:
       - uses: actions-rs/toolchain@v1.0.7
         with:
@@ -39,13 +39,13 @@ jobs:
     runs-on: ${{ matrix.os.imageName }}
     strategy:
       matrix:
-        rust_toolchain: ["stable"]
+        rust_toolchain: ['stable']
         os:
           # - imageName: "ubuntu-18.04"
-          - imageName: "ubuntu-latest"
-          - imageName: "macOS-latest"
+          - imageName: 'ubuntu-latest'
+          - imageName: 'macOS-latest'
           # - imageName: "windows-2019"
-          - imageName: "windows-latest"
+          - imageName: 'windows-latest'
     steps:
       - uses: actions-rs/toolchain@v1.0.7
         with:
