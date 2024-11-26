@@ -21,7 +21,6 @@ jobs:
     runs-on: ${{ matrix.os.imageName }}
     strategy:
       matrix:
-        rust_toolchain: ['stable']
         os:
           # - imageName: "ubuntu-18.04"
           - imageName: 'ubuntu-latest'
@@ -29,10 +28,7 @@ jobs:
           # - imageName: "windows-2019"
           - imageName: 'windows-latest'
     steps:
-      - uses: actions-rs/toolchain@v1.0.7
-        with:
-          toolchain: ${{ matrix.rust_toolchain }}
-          override: true
+      - uses: dtolnay/rust-toolchain@stable
       - uses: actions/checkout@v4
       - name: Test Local Action
         uses: ./
@@ -45,7 +41,6 @@ jobs:
     runs-on: ${{ matrix.os.imageName }}
     strategy:
       matrix:
-        rust_toolchain: ['stable']
         os:
           # - imageName: "ubuntu-18.04"
           - imageName: 'ubuntu-latest'
@@ -53,11 +48,8 @@ jobs:
           # - imageName: "windows-2019"
           - imageName: 'windows-latest'
     steps:
-      - uses: actions-rs/toolchain@v1.0.7
-        with:
-          toolchain: ${{ matrix.rust_toolchain }}
-          override: true
-      - uses: davidB/rust-cargo-make@v1.10.1
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: davidB/rust-cargo-make@v1
         # with:
         #   github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: cargo make --version
