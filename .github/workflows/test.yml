@@ -35,7 +35,9 @@ jobs:
         id: test-action
         # with:
         #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: cargo make --version
+      - run: |
+          cargo make --version
+          makers --version
 
   integration-test-v1:
     runs-on: ${{ matrix.os.imageName }}
@@ -52,4 +54,6 @@ jobs:
       - uses: davidB/rust-cargo-make@v1
         # with:
         #   github_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: cargo make --version
+      - run: |
+          cargo make --version
+          makers --version

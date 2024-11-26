@@ -80,11 +80,13 @@ export async function run(): Promise<void> {
     core.info(`downloading ${url}`)
     const cargoMakeArchive = await tc.downloadTool(url)
     const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)
-    const exec = `cargo-make${exeExt}`
-    const execPath = path.join(execFolder, exec)
-    await io.cp(path.join(extractedFolder, archTopFolder, exec), execPath)
+    for (const exeName in ['cargo-make', 'makers']) {
+      const exec = `${exeName}${exeExt}`
+      const execPath = path.join(execFolder, exec)
+      await io.cp(path.join(extractedFolder, archTopFolder, exec), execPath)
+      core.debug(`installed: ${execPath}`)
+    }
     await io.rmRF(path.join(extractedFolder, archive))
-    core.debug(`installed: ${execPath}`)
     core.info('done')
   } catch (error) {
     if (error instanceof Error) {
