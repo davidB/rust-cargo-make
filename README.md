@@ -39,4 +39,4 @@ Install `cargo-make` by downloading the executable (faster than
       tool: cargo-make
   ```
 
-- using [mise](https://mise.jdx.dev/) and its github action to setup rust, cargo-make, and other tools (on local machine & github workflow), partial list of installable tools at [asdf-vm/asdf-plugins: Convenience shortname repository for asdf community plugins](https://github.com/asdf-vm/asdf-plugins) but there are other alternatives than asdf.
+- using [mise](https://mise.jdx.dev/) and its GitHub Action to setup rust, cargo-make, and other tools (on local machine & GitHub workflow), partial list of installable tools at [asdf-vm/asdf-plugins: Convenience shortname repository for asdf community plugins](https://github.com/asdf-vm/asdf-plugins) but there are other alternatives than asdf.
