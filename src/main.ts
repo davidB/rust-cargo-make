@@ -2,6 +2,7 @@ import * as core from '@actions/core'
 import * as github from '@actions/github'
 import * as io from '@actions/io'
 import * as tc from '@actions/tool-cache'
+import * as fs from 'fs'
 import * as os from 'os'
 import * as path from 'path'
 
@@ -80,11 +81,16 @@ export async function run(): Promise<void> {
     core.info(`downloading ${url}`)
     const cargoMakeArchive = await tc.downloadTool(url)
     const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)
-    for (const exeName in ['cargo-make', 'makers']) {
+    for (const exeName of ['cargo-make', 'makers']) {
       const exec = `${exeName}${exeExt}`
-      const execPath = path.join(execFolder, exec)
-      await io.cp(path.join(extractedFolder, archTopFolder, exec), execPath)
-      core.debug(`installed: ${execPath}`)
+      const srcExecPath = path.join(extractedFolder, archTopFolder, exec)
+      if (fs.existsSync(srcExecPath)) {
+        const execPath = path.join(execFolder, exec)
+        await io.cp(srcExecPath, execPath)
+        core.debug(`installed: ${execPath}`)
+      } else {
+        core.warning(`NOT installed: ${exec} (not found in the ${url})`)
+      }
     }
     await io.rmRF(path.join(extractedFolder, archive))
     core.info('done')

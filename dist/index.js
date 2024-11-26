@@ -32572,6 +32572,7 @@ const core = __importStar(__nccwpck_require__(7484));
 const github = __importStar(__nccwpck_require__(3228));
 const io = __importStar(__nccwpck_require__(4994));
 const tc = __importStar(__nccwpck_require__(3472));
+const fs = __importStar(__nccwpck_require__(9896));
 const os = __importStar(__nccwpck_require__(857));
 const path = __importStar(__nccwpck_require__(6928));
 async function findVersionLatest(fallbackVersion) {
@@ -32641,11 +32642,19 @@ async function run() {
         core.info(`downloading ${url}`);
         const cargoMakeArchive = await tc.downloadTool(url);
         const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder);
-        const exec = `cargo-make${exeExt}`;
-        const execPath = path.join(execFolder, exec);
-        await io.cp(path.join(extractedFolder, archTopFolder, exec), execPath);
+        for (const exeName of ['cargo-make', 'makers']) {
+            const exec = `${exeName}${exeExt}`;
+            const srcExecPath = path.join(extractedFolder, archTopFolder, exec);
+            if (fs.existsSync(srcExecPath)) {
+                const execPath = path.join(execFolder, exec);
+                await io.cp(srcExecPath, execPath);
+                core.debug(`installed: ${execPath}`);
+            }
+            else {
+                core.warning(`NOT installed: ${exec} (not found in the ${url})`);
+            }
+        }
         await io.rmRF(path.join(extractedFolder, archive));
-        core.debug(`installed: ${execPath}`);
         core.info('done');
     }
     catch (error) {
