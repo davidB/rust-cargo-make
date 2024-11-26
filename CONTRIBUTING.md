@@ -54,6 +54,7 @@ for the various packages.
 
 ## Publish to a distribution branch
 
+<!--
 Actions are run from GitHub repos. We will create a releases branch and only
 checkin production modules (core in this case).
 
@@ -64,7 +65,6 @@ Comment out node_modules in .gitignore and create a releases/v1 branch
 # node_modules/
 ```
 
-<!--
 ```bash
 npm run all
 git add dist
