@@ -78,7 +78,7 @@ export async function run(): Promise<void> {
     const githubServerUrl =
       process.env['GITHUB_SERVER_URL'] || 'https://github.com'
     const url = `${githubServerUrl}/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`
-    core.info(`downloading ${url}`)
+    core.info(`downloading (${cargoMakeVersion}) from ${url}`)
     const cargoMakeArchive = await tc.downloadTool(url)
     const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder)
     for (const exeName of ['cargo-make', 'makers']) {
