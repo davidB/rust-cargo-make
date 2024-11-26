@@ -2,8 +2,7 @@
 MD004:
   style: dash
 
-MD013:
-  line_length: false
+MD013: false
 
 # Ordered list item prefix
 MD029:
