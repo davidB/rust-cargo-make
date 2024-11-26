@@ -32639,7 +32639,7 @@ async function run() {
         // see https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables
         const githubServerUrl = process.env['GITHUB_SERVER_URL'] || 'https://github.com';
         const url = `${githubServerUrl}/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`;
-        core.info(`downloading ${url}`);
+        core.info(`downloading (${cargoMakeVersion}) from ${url}`);
         const cargoMakeArchive = await tc.downloadTool(url);
         const extractedFolder = await tc.extractZip(cargoMakeArchive, tmpFolder);
         for (const exeName of ['cargo-make', 'makers']) {
