@@ -1,27 +1,27 @@
-name: "rust-cargo-make"
+name: 'rust-cargo-make'
 description:
-  "Install `cargo-make` by downloading the executable (faster than `cargo
-  install cargo-make`, seconds vs minutes)."
-author: "davidB"
+  'Install `cargo-make` by downloading the executable (faster than `cargo
+  install cargo-make`, seconds vs minutes).'
+author: 'davidB'
 branding:
-  icon: "arrow-down-circle"
-  color: "gray-dark"
+  icon: 'arrow-down-circle'
+  color: 'gray-dark'
 inputs:
   version:
     description: 'version(s) of cargo-make to install (eg. "0.22.2", "latest")'
-    default: "latest"
+    default: 'latest'
   fallback_version:
     description:
       'version of cargo-make to install if "latest" requested but it could not
       be found'
-    default: "0.37.23"
+    default: '0.37.23'
   github_token:
     description:
-      "Authentication token to use when connecting to the GitHub API. Token used
+      'Authentication token to use when connecting to the GitHub API. Token used
       to search the latest version, defining token reduces propability of
       rejection when requested github, it can be defined as
-      `secrets.GITHUB_TOKEN`"
+      `secrets.GITHUB_TOKEN`'
     default: ${{ github.token }}
 runs:
-  using: "node20"
-  main: "dist/index.js"
+  using: 'node20'
+  main: 'dist/index.js'

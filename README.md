@@ -31,7 +31,9 @@ Install `cargo-make` by downloading the executable (faster than
 
 ## Alternatives
 
-- [taiki-e/install-action: GitHub Action for installing development tools (mainly from GitHub Releases).](https://github.com/taiki-e/install-action), full list of installable tools [here](https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
+- [taiki-e/install-action: GitHub Action for installing development tools (mainly from GitHub Releases).](https://github.com/taiki-e/install-action),
+  full list of installable tools
+  [here](https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
 
   ```yaml
   - uses: taiki-e/install-action@v2
@@ -39,4 +41,8 @@ Install `cargo-make` by downloading the executable (faster than
       tool: cargo-make
   ```
 
-- using [mise](https://mise.jdx.dev/) and its GitHub Action to setup rust, cargo-make, and other tools (on local machine & GitHub workflow), partial list of installable tools at [asdf-vm/asdf-plugins: Convenience shortname repository for asdf community plugins](https://github.com/asdf-vm/asdf-plugins) but there are other alternatives than asdf.
+- using [mise](https://mise.jdx.dev/) and its GitHub Action to setup rust,
+  cargo-make, and other tools (on local machine & GitHub workflow), partial list
+  of installable tools at
+  [asdf-vm/asdf-plugins: Convenience shortname repository for asdf community plugins](https://github.com/asdf-vm/asdf-plugins)
+  but there are other alternatives than asdf.
