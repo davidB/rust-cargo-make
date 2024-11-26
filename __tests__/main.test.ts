@@ -24,20 +24,20 @@ describe('action', () => {
   it('runs with fixed version="0.22.1"', () => {
     process.env['RUNNER_TEMP'] = os.tmpdir()
     process.env['INPUT_VERSION'] = '0.22.1'
-    process.env['INPUT_FALLBACK_VERSION'] = '"0.37.23'
+    process.env['INPUT_FALLBACK_VERSION'] = '0.37.23'
     exec_check()
   })
 
   it('runs with version="latest"', () => {
     process.env['RUNNER_TEMP'] = os.tmpdir()
     process.env['INPUT_VERSION'] = 'latest'
-    process.env['INPUT_FALLBACK_VERSION'] = '"0.37.23'
+    process.env['INPUT_FALLBACK_VERSION'] = '0.37.23'
     exec_check()
   })
 
   it('runs without version defined', () => {
     process.env['RUNNER_TEMP'] = os.tmpdir()
-    process.env['INPUT_FALLBACK_VERSION'] = '"0.37.23'
+    process.env['INPUT_FALLBACK_VERSION'] = '0.37.23'
     exec_check()
   })
 })
