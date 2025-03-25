@@ -40,8 +40,12 @@ async function findVersion(): Promise<string> {
 }
 
 export async function run(): Promise<void> {
-  const tmpFolder = path.join(os.tmpdir(), 'setup-rust-cargo-make')
-  await io.mkdirP(tmpFolder)
+  const tmpFolder = await fs.promises.mkdtemp(
+    path.join(os.tmpdir(), 'setup-rust-cargo-make-'),
+    {
+      encoding: 'utf8'
+    }
+  )
   try {
     const cargoMakeVersion = await findVersion()
     core.info(`installing cargo-make ${cargoMakeVersion} ...`)
