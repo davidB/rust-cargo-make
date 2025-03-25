@@ -3,12 +3,15 @@ import * as cp from 'child_process'
 import * as os from 'os'
 import * as path from 'path'
 import * as process from 'process'
+import { fileURLToPath } from 'url'
 
 function exec_check(): void {
   const options: cp.ExecSyncOptionsWithStringEncoding = {
     env: process.env,
     encoding: 'utf-8'
   }
+
+  const __dirname = path.dirname(fileURLToPath(import.meta.url))
   const jscmd = path.join(__dirname, '..', 'dist', 'index.js')
   const exec = cp.spawnSync('node', [jscmd], options)
   if (exec.status != 0) {
