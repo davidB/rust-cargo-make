@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: ci
 
 on:
   pull_request:
@@ -44,21 +44,50 @@ jobs:
         id: npm-ci-test
         run: npm run ci-test
 
-  test-action:
-    name: GitHub Actions Test
+  build: # make sure build/ci work properly
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
+      - run: |
+          npm ci
+          npm run all
+  integration-test-dev:
+    runs-on: ${{ matrix.os.imageName }}
+    strategy:
+      matrix:
+        os:
+          # - imageName: "ubuntu-18.04"
+          - imageName: 'ubuntu-latest'
+          - imageName: 'macOS-latest'
+          # - imageName: "windows-2019"
+          - imageName: 'windows-latest'
+    steps:
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/checkout@v4
       - name: Test Local Action
-        id: test-action
         uses: ./
-        with:
-          milliseconds: 2000
+        id: test-action
+        # with:
+        #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          cargo make --version
+          makers --version
 
-      - name: Print Output
-        id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
+  integration-test-v1:
+    runs-on: ${{ matrix.os.imageName }}
+    strategy:
+      matrix:
+        os:
+          # - imageName: "ubuntu-18.04"
+          - imageName: 'ubuntu-latest'
+          - imageName: 'macOS-latest'
+          # - imageName: "windows-2019"
+          - imageName: 'windows-latest'
+    steps:
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: davidB/rust-cargo-make@v1
+        # with:
+        #   github_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          cargo make --version
+          makers --version
