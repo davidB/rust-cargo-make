@@ -82,7 +82,10 @@ to publish the release on the marketplace
 -->
 
 ```bash
-scripts/release
+# update the version in package.json
+# commit the change
+git commit -a -m "📦"
+script/release
 ```
 
 Your action is now published! :rocket:
