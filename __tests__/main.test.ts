@@ -1,3 +1,4 @@
+/* eslint-disable jest/expect-expect */
 import { expect } from '@jest/globals'
 import * as cp from 'child_process'
 import * as os from 'os'
@@ -14,7 +15,7 @@ function exec_check(): void {
   const __dirname = path.dirname(fileURLToPath(import.meta.url))
   const jscmd = path.join(__dirname, '..', 'dist', 'index.js')
   const exec = cp.spawnSync('node', [jscmd], options)
-  if (exec.status != 0) {
+  if (exec.status !== 0) {
     console.log(exec)
   }
   expect(exec.status).toEqual(0)
