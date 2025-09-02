@@ -2,7 +2,7 @@
   "name": "rust-cargo-make",
   "description": "Install cargo-make as a github-action",
   "author": "davidB",
-  "version": "1.13.2",
+  "version": "1.13.3",
   "keywords": [
     "actions",
     "rust",
