@@ -42,7 +42,7 @@
   "dependencies": {
     "@actions/core": "^2.0.2",
     "@actions/github": "^6.0",
-    "@actions/io": "^2.0",
+    "@actions/io": "^3.0",
     "@actions/tool-cache": "^2.0"
   },
   "devDependencies": {
