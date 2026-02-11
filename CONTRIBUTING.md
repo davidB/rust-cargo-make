@@ -56,7 +56,7 @@ for the various packages.
 
 <!--
 Actions are run from GitHub repos. We will create a releases branch and only
-checkin production modules (core in this case).
+check in production modules (core in this case).
 
 Comment out node_modules in .gitignore and create a releases/v1 branch
 

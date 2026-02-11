@@ -32,8 +32,8 @@ Install `cargo-make` by downloading the executable (faster than
 ## Alternatives
 
 - [taiki-e/install-action: GitHub Action for installing development tools (mainly from GitHub Releases).](https://github.com/taiki-e/install-action),
-  full list of installable tools
-  [here](https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
+  full
+  [list of installable tools](https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
 
   ```yaml
   - uses: taiki-e/install-action@v2
