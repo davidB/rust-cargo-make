@@ -37,6 +37,9 @@ import require$$5$3 from 'string_decoder';
 import * as child from 'child_process';
 import { setTimeout as setTimeout$1 } from 'timers';
 import * as stream from 'stream';
+import { promises as promises$1, existsSync as existsSync$1 } from 'node:fs';
+import * as os$1 from 'node:os';
+import * as path$1 from 'node:path';
 
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -37685,7 +37688,7 @@ async function findVersionLatest(fallbackVersion) {
     info(`search latest version of cargo-make`);
     let version = fallbackVersion;
     // octokit require a token also for public (anonymous endpoint)
-    const token = getInput('github_token') || process.env['GITHUB_TOKEN'];
+    const token = getInput('github_token') || process.env.GITHUB_TOKEN;
     if (token) {
         const octokit = getOctokit(token);
         const { data } = await octokit.rest.repos.getLatestRelease({
@@ -37710,15 +37713,15 @@ async function findVersion() {
     return Promise.resolve(inputVersion);
 }
 async function run() {
-    const tmpFolder = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'setup-rust-cargo-make-'), {
+    const tmpFolder = await promises$1.mkdtemp(path$1.join(os$1.tmpdir(), 'setup-rust-cargo-make-'), {
         encoding: 'utf8'
     });
     try {
         const cargoMakeVersion = await findVersion();
         info(`installing cargo-make ${cargoMakeVersion} ...`);
-        const platform = process.env['PLATFORM'] || process.platform;
+        const platform = process.env.PLATFORM || process.platform;
         debug(platform);
-        const execFolder = path.join(os.homedir(), '.cargo', 'bin');
+        const execFolder = path$1.join(os$1.homedir(), '.cargo', 'bin');
         debug(execFolder);
         await mkdirP(execFolder);
         let exeExt = '';
@@ -37744,16 +37747,16 @@ async function run() {
         }
         const archive = `cargo-make-v${cargoMakeVersion}-${arch}`;
         // see https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables
-        const githubServerUrl = process.env['GITHUB_SERVER_URL'] || 'https://github.com';
+        const githubServerUrl = process.env.GITHUB_SERVER_URL || 'https://github.com';
         const url = `${githubServerUrl}/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`;
         info(`downloading (${cargoMakeVersion}) from ${url}`);
         const cargoMakeArchive = await downloadTool(url);
         const extractedFolder = await extractZip(cargoMakeArchive, tmpFolder);
         for (const exeName of ['cargo-make', 'makers']) {
             const exec = `${exeName}${exeExt}`;
-            const srcExecPath = path.join(extractedFolder, archTopFolder, exec);
-            if (fs.existsSync(srcExecPath)) {
-                const execPath = path.join(execFolder, exec);
+            const srcExecPath = path$1.join(extractedFolder, archTopFolder, exec);
+            if (existsSync$1(srcExecPath)) {
+                const execPath = path$1.join(execFolder, exec);
                 await cp(srcExecPath, execPath);
                 debug(`installed: ${execPath}`);
             }
@@ -37761,7 +37764,7 @@ async function run() {
                 warning(`NOT installed: ${exec} (not found in the ${url})`);
             }
         }
-        await rmRF(path.join(extractedFolder, archive));
+        await rmRF(path$1.join(extractedFolder, archive));
         info('done');
     }
     catch (error$1) {

@@ -2,15 +2,15 @@ import * as core from '@actions/core'
 import * as github from '@actions/github'
 import * as io from '@actions/io'
 import * as tc from '@actions/tool-cache'
-import * as fs from 'fs'
-import * as os from 'os'
-import * as path from 'path'
+import { promises, existsSync } from 'node:fs'
+import * as os from 'node:os'
+import * as path from 'node:path'
 
 async function findVersionLatest(fallbackVersion: string): Promise<string> {
   core.info(`search latest version of cargo-make`)
   let version: string = fallbackVersion
   // octokit require a token also for public (anonymous endpoint)
-  const token = core.getInput('github_token') || process.env['GITHUB_TOKEN']
+  const token = core.getInput('github_token') || process.env.GITHUB_TOKEN
   if (token) {
     const octokit = github.getOctokit(token)
     const { data } = await octokit.rest.repos.getLatestRelease({
@@ -40,7 +40,7 @@ async function findVersion(): Promise<string> {
 }
 
 export async function run(): Promise<void> {
-  const tmpFolder = await fs.promises.mkdtemp(
+  const tmpFolder = await promises.mkdtemp(
     path.join(os.tmpdir(), 'setup-rust-cargo-make-'),
     {
       encoding: 'utf8'
@@ -49,7 +49,7 @@ export async function run(): Promise<void> {
   try {
     const cargoMakeVersion = await findVersion()
     core.info(`installing cargo-make ${cargoMakeVersion} ...`)
-    const platform = process.env['PLATFORM'] || process.platform
+    const platform = process.env.PLATFORM || process.platform
     core.debug(platform)
 
     const execFolder = path.join(os.homedir(), '.cargo', 'bin')
@@ -80,7 +80,7 @@ export async function run(): Promise<void> {
     const archive = `cargo-make-v${cargoMakeVersion}-${arch}`
     // see https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables
     const githubServerUrl =
-      process.env['GITHUB_SERVER_URL'] || 'https://github.com'
+      process.env.GITHUB_SERVER_URL || 'https://github.com'
     const url = `${githubServerUrl}/sagiegurari/cargo-make/releases/download/${cargoMakeVersion}/${archive}.zip`
     core.info(`downloading (${cargoMakeVersion}) from ${url}`)
     const cargoMakeArchive = await tc.downloadTool(url)
@@ -88,7 +88,7 @@ export async function run(): Promise<void> {
     for (const exeName of ['cargo-make', 'makers']) {
       const exec = `${exeName}${exeExt}`
       const srcExecPath = path.join(extractedFolder, archTopFolder, exec)
-      if (fs.existsSync(srcExecPath)) {
+      if (existsSync(srcExecPath)) {
         const execPath = path.join(execFolder, exec)
         await io.cp(srcExecPath, execPath)
         core.debug(`installed: ${execPath}`)
