@@ -68,7 +68,7 @@
     "rollup": "^4.62.3",
     "ts-jest": "^29.4.12",
     "ts-jest-resolver": "^2.0.1",
-    "typescript": "^6"
+    "typescript": "^7"
   },
   "//devDependencies": {
     "@github/local-action": "^5.2.0"
